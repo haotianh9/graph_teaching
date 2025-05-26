@@ -175,3 +175,5 @@ cython_debug/
 
 # temp data fieles
 NetworkScience/Data/COLLAB/
+NetworkScience/Data/drosophila_brain_connectome.csv
+NetworkScience/Data/web-BerkStan.txt
