@@ -769,8 +769,8 @@ combination of two mechanisms that random networks lack: network growth and
 preferential attachment. The chapter defines the model by adding new nodes over
 time and choosing their targets with probability proportional to degree,
 \(\Pi_i = k_i / \sum_j k_j\). This transcript keeps Video 5.1 focused on that
-conceptual mechanism; model-definition details, finite-size effects, derivation,
-and limitations remain for Videos 5.2-5.4.
+conceptual mechanism; model-definition details, derivation, and limitations
+remain for Videos 5.2-5.3.
 
 Sources used for alignment:
 

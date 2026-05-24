@@ -14,15 +14,18 @@ Core libraries and tools:
 - Manim Community
 - NumPy
 - NetworkX
+- pandas, used by the real-network data loaders and clustering comparison scripts
+- openpyxl, used by pandas to read the C. elegans `.xlsx` data file
 - FFmpeg and FFprobe
 - LaTeX tools used by Manim for `MathTex`
 - A Chinese font for bilingual captions, currently `Noto Sans SC`
+- Pillow, used for generated video cover images
 
 Audio and review helpers:
 
 - gTTS, used by `NetworkScience/Chapter5/video5_1/scripts/generate_chinese_audio.py`
 - openai-whisper, used for recorded Chinese narration transcription
-- faster-whisper, optional alternative transcription backend
+- faster-whisper, used for recorded Chinese narration transcription when available
 - Optional `manim-voiceover[gtts]` for future in-scene voiceover timing
 - Optional ImageMagick for contact-sheet visual checks
 
@@ -32,7 +35,8 @@ Typical setup:
 source /home/haotian/miniconda3/etc/profile.d/conda.sh
 conda activate manim
 pip install gTTS
-pip install faster-whisper
+pip install pandas openpyxl
+pip install faster-whisper Pillow
 pip install "manim-voiceover[gtts]"  # optional
 ```
 
