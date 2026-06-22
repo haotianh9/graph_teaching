@@ -2,7 +2,7 @@
 
 ## Suggested Title
 
-从连接规则到幂律：BA 模型为什么给出 gamma = 3？ | Network Science Chapter 5
+从连接规则到幂律：BA 模型为什么给出 γ = 3？ | Network Science Chapter 5
 
 ## Short Description
 

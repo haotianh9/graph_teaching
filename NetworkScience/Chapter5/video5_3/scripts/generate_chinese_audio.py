@@ -18,7 +18,7 @@ SCENES = [
 
 
 FORMULA_SPEECH = {
-    r"\(\Pi_i \propto \eta_i k_i\)": "Pi i 正比于 eta i 乘以 k i",
+    r"\(\Pi_i \propto \eta_i k_i\)": "Pi i 正比于艾塔 i 乘以 k i",
     r"\(\Pi_i \propto k_i A(\mathrm{age}_i)\)": "Pi i 正比于 k i 乘以年龄函数 A",
     r"\(\Pi_i \propto k_i^\alpha\)": "Pi i 正比于 k i 的 alpha 次方",
     r"\(\gamma=3\)": "伽马等于三",

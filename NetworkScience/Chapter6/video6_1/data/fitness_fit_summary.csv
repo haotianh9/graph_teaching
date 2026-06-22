@@ -1,0 +1,4 @@
+paper_id,label,date,total_citations,beta_hat,eta_hat,early_share_first_2y,max_age_years,note
+9612223,early burst,1996-12-02,20,1.074,0.644,0.75,4.86,"many citations arrive early, then growth slows"
+9607227,steady growth,1996-07-03,41,1.661,0.996,0.22,5.687,"middle slope, citations keep accumulating"
+9406217,late bloomer,1994-06-02,25,3.921,2.351,0.0,7.302,"small early share, high fitted growth slope"
