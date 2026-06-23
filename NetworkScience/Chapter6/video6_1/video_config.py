@@ -21,6 +21,7 @@ TTS_AUDIO_DIR = "assets/audio/zh"
 TTS_FINAL_OUT = "media/videos/video6_1_zh_tts_review_720p30.mp4"
 HUMAN_AUDIO_PATH = "media/audio/audio1596409650.m4a"
 HUMAN_FINAL_OUT = "media/videos/video6_1_human_audio_final_720p30.mp4"
+HUMAN_AUDIO_FILTER = "highpass=f=80,lowpass=f=9000,afftdn=nf=-32,loudnorm=I=-16:TP=-1.5:LRA=11"
 
 COVER_TITLE = "如何推断 Fitness?"
 COVER_SUBTITLE = "from fitness model to growth data"

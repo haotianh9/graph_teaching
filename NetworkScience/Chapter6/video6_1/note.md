@@ -111,6 +111,15 @@ video_description.md
 The public title, short description, references, and both cover ratios are
 generated from `video_config.py`.
 
+The human-audio final uses the configured speech cleanup chain:
+
+```text
+highpass=f=80,lowpass=f=9000,afftdn=nf=-32,loudnorm=I=-16:TP=-1.5:LRA=11
+```
+
+This keeps the original `.m4a` untouched and applies filtering only when the
+final mp4 is assembled.
+
 ## Acceptance Checklist
 
 - all ten scenes render at 720p30;

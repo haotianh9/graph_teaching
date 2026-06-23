@@ -15,6 +15,11 @@ def build_human_audio_final(video_dir: Path, fail_if_missing: bool = False) -> P
 
     audio_path = video_dir / configured_audio
     final_out = video_dir / getattr(config, "HUMAN_FINAL_OUT", f"media/videos/{config.VIDEO_ID}_human_audio_final_720p30.mp4")
+    audio_filter = getattr(
+        config,
+        "HUMAN_AUDIO_FILTER",
+        "loudnorm=I=-16:TP=-1.5:LRA=11",
+    )
 
     if not audio_path.exists():
         message = f"No human audio found at {audio_path.relative_to(video_dir)}; skipped."
@@ -92,7 +97,7 @@ def build_human_audio_final(video_dir: Path, fail_if_missing: bool = False) -> P
             "-b:a",
             "192k",
             "-af",
-            "loudnorm=I=-16:TP=-1.5:LRA=11",
+            audio_filter,
             "-shortest",
             final_out,
         ]
