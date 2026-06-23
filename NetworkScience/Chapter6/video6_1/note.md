@@ -114,11 +114,15 @@ generated from `video_config.py`.
 The human-audio final uses the configured speech cleanup chain:
 
 ```text
-highpass=f=80,lowpass=f=9000,afftdn=nf=-32,loudnorm=I=-16:TP=-1.5:LRA=11
+highpass=f=90,lowpass=f=7800,afftdn=nr=24:nf=-42:tn=1,
+anlmdn=s=0.0004:p=0.004:r=0.006,
+agate=threshold=0.018:ratio=18:attack=12:release=180:range=0.02,
+loudnorm=I=-16:TP=-1.5:LRA=11
 ```
 
 This keeps the original `.m4a` untouched and applies filtering only when the
-final mp4 is assembled.
+final mp4 is assembled. The `agate` stage is important for suppressing
+background noise during pauses before speech starts.
 
 ## Acceptance Checklist
 
