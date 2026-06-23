@@ -6,7 +6,7 @@
 
 ## Short Description
 
-这一节先用很短时间回顾 Bianconi-Barabasi fitness model：attachment 不只由 degree 决定，也由 fitness η 决定。重点放在数据问题：先推导 β(η)=η/C 和 log-log growth equation，再问如果真实网络里存在 fitness，我们怎样从节点的增长轨迹、log-log slope、引用历史和观测窗口中推断它? 视频最后用 SNAP HEP-TH citation data 做一个真实数据的 effective fitness fitting demo。
+为什么有的节点一开始并不显眼，后来却能持续吸引链接和引用？BA 模型告诉我们 degree 很重要，但 Chapter 6 加入了另一个关键量：fitness η。这一节把 fitness 从一个模型参数变成一个数据问题：如何从增长曲线的 log-log slope 估计 β(η)，又如何避免被早期热度误导？最后用 SNAP HEP-TH citation network 做一个真实数据 demo，看 fitness 如何作为长期影响力的增长信号被估计出来。
 
 ## References
 
