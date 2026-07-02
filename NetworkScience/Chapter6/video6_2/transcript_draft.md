@@ -4,17 +4,17 @@ Title: 从凝聚到相变：演化网络的拓扑如何被动力学改变？
 
 ## FitnessDistributionOpening
 
-我们先不要从抽象分布开始，而是先看一个真实数据里的估计结果。
-这里用的是 SNAP HEP-TH citation histories：对每篇论文的引用增长曲线做 log-log slope 拟合，
-再把斜率归一化成一个 effective fitness，记作 \(\widehat{\eta}\)。
+我们先不要从抽象分布开始，而是先看两个可以复现的时间历史例子。
+左边是 SNAP HEP-TH citation histories：对每篇论文的引用增长曲线做 log-log slope 拟合，
+再把斜率归一化成 estimated effective fitness，记作 \(\widehat{\eta}\)。
 
-这不是说 fitness 可以从一张静态网络图里直接读出来。
-fitness 需要时间历史：节点什么时候出现，链接或引用如何随时间增加。
-Network Science 第六章的经典例子使用的是 Web documents 的时间演化来测量 WWW 的 fitness distribution。
-我们这里用 citation histories，是因为本地已有可复现的时间戳数据。
+右边是一个更轻量的 Web 版本：用 Common Crawl 多期 domain-level Web Graph 的 PageRank snapshots，
+拟合 domain visibility 的增长斜率，再归一化成 \(\widehat{\eta}_{web}\)。
+这不是 Network Science 书中 page-level Web documents fitness 的完全复现，
+而是一个可做的教学 proxy：它说明 Web documents 也必须有时间历史，不能只靠一张静态 Web graph。
 
-这个直方图传达的重点是：大多数节点的 estimated fitness 接近中间区域，
-但右尾仍然有少数高 fitness 节点。
+这两个直方图共同传达的重点是：fitness distribution 本身是模型的一部分。
+大多数节点集中在中间区域，但右尾的少数高 fitness 节点可能非常关键。
 接下来要问的是：整个 \(\rho(\eta)\) 的形状，是否会让网络从普通的 fit-get-rich 进入 condensation？
 
 ## TwoOutcomesOrderParameter

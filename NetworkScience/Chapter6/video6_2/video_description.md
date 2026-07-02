@@ -6,7 +6,7 @@
 
 ## Short Description
 
-这一节先从真实 HEP-TH citation histories 拟合出的 estimated fitness 分布出发，再问一个更大的问题：整个 fitness distribution 的形状会不会改变网络的相？同一个增长规则既可能产生 fit-get-rich，也可能进入 condensation：一个节点拿走有限比例的链接。后半部分把这个想法推广到 initial attractiveness、internal links、deletion、aging 和 accelerated growth，强调网络拓扑是演化动力学留下的宏观痕迹。
+如果少数节点真的更有“吸引力”，网络只是多几个大 hub，还是会进入 winner-takes-all？这一节先看两个可复现的时间历史 proxy：HEP-TH citation histories 拟合出的 estimated fitness，以及 Common Crawl Web-domain PageRank snapshots 得到的 Web visibility growth proxy。然后问一个更大的问题：整个 fitness distribution 的形状会不会改变网络的相？同一个增长规则既可能产生 fit-get-rich，也可能进入 condensation：一个节点拿走有限比例的链接。后半部分把这个想法推广到 initial attractiveness、internal links、deletion、aging 和 accelerated growth，强调网络拓扑是演化动力学留下的宏观痕迹。
 
 ## References
 
@@ -18,6 +18,12 @@ https://networksciencebook.com/chapter/6#measuring-fitness
 
 Experience versus talent shapes the structure of the Web:
 https://doi.org/10.1073/pnas.0805921105
+
+Common Crawl Web Graphs:
+https://commoncrawl.org/web-graphs
+
+Common Crawl Web Graph statistics:
+https://commoncrawl.github.io/cc-webgraph-statistics/
 
 Bianconi and Barabasi, Bose-Einstein condensation in complex networks:
 https://doi.org/10.1103/PhysRevLett.86.5632

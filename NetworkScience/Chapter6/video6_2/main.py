@@ -16,6 +16,7 @@ from chapter6_manim_utils import ALERT, BG, HIGH, LOW, MID, MUTED, add_title, gr
 WHITEISH = "#F3F0E8"
 ZH_FONT = "Noto Sans SC"
 FITNESS_FIT_PATH = Path(__file__).resolve().parents[1] / "video6_1" / "data" / "fitness_fit_results.json"
+WEB_PROXY_PATH = Path(__file__).resolve().parent / "data" / "commoncrawl_web_fitness_proxy.json"
 
 
 def scale_free_graph(n: int = 78) -> nx.Graph:
@@ -93,17 +94,34 @@ def load_eta_distribution() -> dict:
     }
 
 
-def eta_distribution_chart() -> VGroup:
-    distribution = load_eta_distribution()
+def load_web_proxy_distribution() -> dict:
+    if WEB_PROXY_PATH.exists():
+        return json.loads(WEB_PROXY_PATH.read_text(encoding="utf-8"))["eta_web_proxy_distribution"]
+    return {
+        "bin_edges": [0.65, 0.72, 0.78, 0.85, 0.92, 0.98, 1.05, 1.12, 1.18, 1.25, 1.32, 1.38, 1.45],
+        "density": [0.0, 0.02, 0.13, 0.28, 0.78, 1.0, 0.57, 0.19, 0.04, 0.05, 0.03, 0.0],
+        "counts": [0, 5, 30, 63, 175, 224, 127, 42, 9, 10, 6, 1],
+        "quantiles": {"p50": 1.0, "p90": 1.119, "p99": 1.366},
+    }
+
+
+def distribution_chart(
+    distribution: dict,
+    x_tex: str,
+    count_text: str,
+    median_text: str,
+    p90_text: str,
+    tick_values: list[float],
+    width: float = 4.6,
+    height: float = 2.1,
+) -> VGroup:
     edges = distribution["bin_edges"]
     density = distribution["density"]
     counts = distribution["counts"]
     quantiles = distribution["quantiles"]
 
     axis_color = WHITE
-    x0, y0 = -3.0, -1.15
-    width = 5.65
-    height = 2.6
+    x0, y0 = -width / 2, -height / 2
     eta_min = float(edges[0])
     eta_max = float(edges[-1])
 
@@ -115,7 +133,7 @@ def eta_distribution_chart() -> VGroup:
         bar_right = x0 + width * (float(right) - eta_min) / (eta_max - eta_min)
         bar_width = max(0.03, bar_right - bar_left - 0.025)
         bar_height = height * float(value)
-        color = interpolate_color(LOW, HIGH, min(1.0, max(0.0, (float(left) - 0.5) / 1.7)))
+        color = interpolate_color(LOW, HIGH, min(1.0, max(0.0, (float(left) - eta_min) / max(eta_max - eta_min, 1e-6))))
         bar = Rectangle(
             width=bar_width,
             height=bar_height,
@@ -132,24 +150,50 @@ def eta_distribution_chart() -> VGroup:
     p90_x = x_for_eta(float(quantiles["p90"]))
     median = VGroup(
         DashedLine([median_x, y0, 0], [median_x, y0 + height * 0.98, 0], color=WHITE, stroke_width=2),
-        MathTex(r"\mathrm{median}\ \hat{\eta}=0.93", font_size=22, color=WHITE),
+        MathTex(median_text, font_size=18, color=WHITE),
     )
-    median[1].next_to(median[0], UP, buff=0.08)
+    median[1].next_to(median[0], UP, buff=0.06).shift(LEFT * 0.08)
     p90 = VGroup(
-        DashedLine([p90_x, y0, 0], [p90_x, y0 + height * 0.75, 0], color=HIGH, stroke_width=2),
-        MathTex(r"90\%\leq 1.48", font_size=22, color=HIGH),
+        DashedLine([p90_x, y0, 0], [p90_x, y0 + height * 0.7, 0], color=HIGH, stroke_width=2),
+        MathTex(p90_text, font_size=18, color=HIGH),
     )
-    p90[1].next_to(p90[0], UP, buff=0.08)
+    p90[1].next_to(p90[0], UP, buff=0.06).shift(RIGHT * 0.08)
 
-    x_label = MathTex(r"\widehat{\eta}", font_size=30, color=HIGH).next_to(x_axis, DOWN, buff=0.18)
-    y_label = Text("count", font_size=21, color=MUTED).rotate(PI / 2).next_to(y_axis, LEFT, buff=0.18)
+    x_label = MathTex(x_tex, font_size=24, color=HIGH).next_to(x_axis.get_end(), RIGHT, buff=0.1).shift(DOWN * 0.03)
+    y_label = Text("count", font_size=17, color=MUTED).rotate(PI / 2).next_to(y_axis, LEFT, buff=0.12)
     ticks = VGroup()
-    for value, label in [(0.5, "0.5"), (1.0, "1.0"), (1.5, "1.5"), (2.0, "2.0"), (2.5, "2.5")]:
+    for value in tick_values:
         x = x_for_eta(value)
         ticks.add(Line([x, y0 - 0.05, 0], [x, y0 + 0.05, 0], color=axis_color, stroke_width=2))
-        ticks.add(Text(label, font_size=16, color=MUTED).move_to([x, y0 - 0.28, 0]))
-    count_label = Text(f"{sum(counts):,} fitted papers", font_size=20, color=WHITE).next_to(VGroup(x_axis, y_axis), UP, buff=0.22).align_to(y_axis, LEFT)
+        ticks.add(Text(f"{value:g}", font_size=14, color=MUTED).move_to([x, y0 - 0.23, 0]))
+    count_label = Text(count_text, font_size=17, color=WHITE).next_to(VGroup(x_axis, y_axis), UP, buff=0.18).align_to(y_axis, LEFT)
     return VGroup(x_axis, y_axis, ticks, bars, median, p90, x_label, y_label, count_label)
+
+
+def eta_distribution_chart() -> VGroup:
+    return distribution_chart(
+        load_eta_distribution(),
+        r"\widehat{\eta}",
+        "1,271 fitted papers",
+        r"\mathrm{median}\ 0.93",
+        r"90\%\leq 1.48",
+        [0.5, 1.0, 1.5, 2.0, 2.5],
+    )
+
+
+def web_proxy_chart() -> VGroup:
+    data = load_web_proxy_distribution()
+    domain_count = 695
+    if WEB_PROXY_PATH.exists():
+        domain_count = json.loads(WEB_PROXY_PATH.read_text(encoding="utf-8"))["domain_count"]
+    return distribution_chart(
+        data,
+        r"\widehat{\eta}_{\mathrm{web}}",
+        f"{domain_count:,} fitted domains",
+        r"\mathrm{median}\ 1.00",
+        r"90\%\leq 1.12",
+        [0.7, 0.9, 1.1, 1.3],
+    )
 
 
 def condensation_reference_card() -> VGroup:
@@ -175,44 +219,34 @@ def condensation_reference_card() -> VGroup:
 class FitnessDistributionOpening(Scene):
     def construct(self):
         self.camera.background_color = BG
-        add_title(self, "Start from a Real Fitness Distribution", font_size=41)
+        add_title(self, "Start from Real Time Histories", font_size=41)
 
         heading = VGroup(
             concept_label("estimated effective fitness", "估计的有效适应度", HIGH, en_size=25, zh_size=23),
-            compact_note("HEP-TH citation histories: growth slope -> fitness proxy", WHITE, size=20),
-        ).arrange(DOWN, buff=0.08).to_edge(UP, buff=1.25)
+            compact_note("doable proxies from growth histories, not one static graph", WHITE, size=20),
+        ).arrange(DOWN, buff=0.08).to_edge(UP, buff=1.2)
 
-        chart = eta_distribution_chart().shift(LEFT * 2.75 + DOWN * 0.55)
-        book_anchor = VGroup(
-            compact_note("Book anchor", HIGH, size=24),
-            Text("Network Science Ch. 6 uses", font_size=20, color=WHITE),
-            Text("time evolution of Web documents", font_size=20, color=WHITE),
-            Text("to measure a WWW fitness distribution", font_size=20, color=WHITE),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        data_rule = VGroup(
-            compact_note("Data requirement", MID, size=24),
-            Text("fitness needs growth histories", font_size=20, color=WHITE),
-            Text("static edge lists show topology,", font_size=20, color=MUTED),
-            Text("not fitness by themselves", font_size=20, color=MUTED),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        domains = VGroup(
-            compact_note("Possible domains", HIGH, size=24),
-            Text("web snapshots", font_size=20, color=WHITE),
-            Text("citation histories", font_size=20, color=WHITE),
-            Text("social follower growth", font_size=20, color=WHITE),
-            Text("product/adoption networks", font_size=20, color=WHITE),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        right = VGroup(book_anchor, data_rule, domains).arrange(DOWN, aligned_edge=LEFT, buff=0.27)
-        right.move_to(RIGHT * 3.55 + DOWN * 0.78)
+        citation_panel = VGroup(
+            Text("Citation histories", font_size=24, color=HIGH),
+            Text("SNAP HEP-TH papers", font_size=18, color=WHITE),
+            eta_distribution_chart(),
+        ).arrange(DOWN, buff=0.08).move_to(LEFT * 3.15 + DOWN * 0.42)
+
+        web_panel = VGroup(
+            Text("Web-domain snapshots", font_size=24, color=HIGH),
+            Text("Common Crawl top domains", font_size=18, color=WHITE),
+            web_proxy_chart(),
+        ).arrange(DOWN, buff=0.08).move_to(RIGHT * 3.15 + DOWN * 0.42)
 
         bottom = VGroup(
-            MathTex(r"\rho(\eta)\ \mathrm{is\ not\ just\ decoration}", font_size=31, color=HIGH),
-            compact_note("a thin right tail can decide whether the network stays fit-get-rich or condenses", WHITE, size=21),
-        ).arrange(DOWN, buff=0.08).to_edge(DOWN, buff=0.28)
+            compact_note("Book anchor: page-level Web documents; here: domain-level Common Crawl PageRank snapshots.", HIGH, size=18),
+            compact_note("Static edge lists show topology, not fitness; we need time histories.", WHITE, size=19),
+            MathTex(r"\rho(\eta)\ \mathrm{can\ decide:\ fit\!-\!get\!-\!rich\ or\ condensation}", font_size=25, color=HIGH),
+        ).arrange(DOWN, buff=0.06).to_edge(DOWN, buff=0.2)
 
         self.play(FadeIn(heading), run_time=1.0)
-        self.play(FadeIn(chart), run_time=1.3)
-        self.play(FadeIn(right), run_time=1.2)
+        self.play(FadeIn(citation_panel), run_time=1.2)
+        self.play(FadeIn(web_panel), run_time=1.2)
         self.play(FadeIn(bottom), run_time=0.8)
         self.wait(2.1)
 

@@ -1,0 +1,17 @@
+kind,domain,eta_web_proxy,first_rank,last_rank,points
+fastest,fb.watch,1.642,873,92,5
+fastest,tiktok.com,1.601,340,47,6
+fastest,openai.com,1.517,2880,292,7
+fastest,whatsapp.com,1.395,309,22,9
+fastest,whatwg.org,1.38,487,159,5
+fastest,t.me,1.377,365,60,8
+fastest,b-cdn.net,1.372,812,199,5
+fastest,substack.com,1.366,1509,255,5
+slowest,wp.me,0.747,40,300,9
+slowest,wikidot.com,0.773,591,3355,5
+slowest,netdna-ssl.com,0.774,302,1353,6
+slowest,fb.me,0.776,94,361,5
+slowest,macromedia.com,0.779,15,107,8
+slowest,channel4.com,0.786,1951,3660,5
+slowest,w.org,0.786,6,38,9
+slowest,mapquest.com,0.79,255,2083,7
