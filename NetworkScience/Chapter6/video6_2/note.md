@@ -6,14 +6,15 @@ Status: v0.4 review prototype.
 
 ## Scope
 
-This section follows the fitness model discussion and shifts from measuring
-single-node fitness to asking what the whole fitness distribution does to
+This section follows the fitness model discussion and starts from a real
+estimated effective-fitness distribution, using the HEP-TH citation-growth fit
+from `video6_1`. It then asks what the whole fitness distribution does to
 network topology.
 
 Core flow:
 
 ```text
-fitness rule
+HEP-TH fitted effective-fitness distribution
 -> fitness distribution
 -> condensation as a finite-share phase
 -> order parameter for topology
@@ -49,8 +50,9 @@ in the large-network limit.
 
 ## Scenes
 
-1. `FitnessDistributionOpening` — start from the network question, not the
-   Bose-gas analogy.
+1. `FitnessDistributionOpening` — start from a real fitted HEP-TH
+   \(\widehat{\eta}\) distribution and explain why static networks alone do
+   not measure fitness.
 2. `TwoOutcomesOrderParameter` — compare fit-get-rich and condensation using
    \(s_{\max}\).
 3. `CondensationAsPhaseTransition` — introduce condensation and the brief
@@ -71,7 +73,9 @@ in the large-network limit.
 - Do not use numbered video labels on screen or in public-facing text.
 - Do not reuse the previous fitness-inference bridge visual.
 - Keep this section focused on topology phases and evolving-network
-  mechanisms, not on fitness fitting from empirical trajectories.
+  mechanisms. The opening can use the `video6_1` fitted HEP-TH
+  \(\widehat{\eta}\) distribution as motivation, but should not repeat the
+  full inference workflow.
 - Use Greek symbols directly in public text: \(\eta,\rho,\gamma,\nu\).
 - Add Chinese only for key concepts, not every explanatory phrase:
   fitness distribution / 适应度分布, order parameter / 序参量,
@@ -114,9 +118,15 @@ generated from `video_config.py`.
 
 ## References
 
+- Network Science book, Chapter 6.3 measuring fitness:
+  https://networksciencebook.com/chapter/6#measuring-fitness
 - Network Science book, Chapter 6.4-6.5:
   https://networksciencebook.com/chapter/6#bose-einstein-condensation
+- Kong, Sarshar, and Roychowdhury, *Experience versus talent shapes the
+  structure of the Web*, PNAS 105, 13724-13729 (2008).
 - Bianconi and Barabasi, *Bose-Einstein condensation in complex networks*,
   Physical Review Letters 86, 5632-5635 (2001).
+- SNAP HEP-TH citation network:
+  https://snap.stanford.edu/data/cit-HepTh.html
 - Course repository:
   https://github.com/haotianh9/graph_teaching

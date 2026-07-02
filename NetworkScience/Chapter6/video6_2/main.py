@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -14,6 +15,7 @@ from chapter6_manim_utils import ALERT, BG, HIGH, LOW, MID, MUTED, add_title, gr
 
 WHITEISH = "#F3F0E8"
 ZH_FONT = "Noto Sans SC"
+FITNESS_FIT_PATH = Path(__file__).resolve().parents[1] / "video6_1" / "data" / "fitness_fit_results.json"
 
 
 def scale_free_graph(n: int = 78) -> nx.Graph:
@@ -80,6 +82,76 @@ def compact_note(text: str, color=WHITE, size: int = 22) -> Text:
     return Text(text, font_size=size, color=color)
 
 
+def load_eta_distribution() -> dict:
+    if FITNESS_FIT_PATH.exists():
+        return json.loads(FITNESS_FIT_PATH.read_text(encoding="utf-8"))["eta_distribution"]
+    return {
+        "bin_edges": [0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3, 2.5, 2.7, 3.0],
+        "density": [0.12, 0.64, 1.0, 0.84, 0.50, 0.29, 0.13, 0.08, 0.04, 0.03, 0.0, 0.0, 0.0],
+        "counts": [46, 224, 344, 288, 173, 101, 45, 27, 12, 9, 1, 0, 1],
+        "quantiles": {"p50": 0.934, "p90": 1.476, "p99": 2.083},
+    }
+
+
+def eta_distribution_chart() -> VGroup:
+    distribution = load_eta_distribution()
+    edges = distribution["bin_edges"]
+    density = distribution["density"]
+    counts = distribution["counts"]
+    quantiles = distribution["quantiles"]
+
+    axis_color = WHITE
+    x0, y0 = -3.0, -1.15
+    width = 5.65
+    height = 2.6
+    eta_min = float(edges[0])
+    eta_max = float(edges[-1])
+
+    x_axis = Line([x0, y0, 0], [x0 + width, y0, 0], color=axis_color, stroke_width=2)
+    y_axis = Line([x0, y0, 0], [x0, y0 + height, 0], color=axis_color, stroke_width=2)
+    bars = VGroup()
+    for left, right, value, count in zip(edges[:-1], edges[1:], density, counts):
+        bar_left = x0 + width * (float(left) - eta_min) / (eta_max - eta_min)
+        bar_right = x0 + width * (float(right) - eta_min) / (eta_max - eta_min)
+        bar_width = max(0.03, bar_right - bar_left - 0.025)
+        bar_height = height * float(value)
+        color = interpolate_color(LOW, HIGH, min(1.0, max(0.0, (float(left) - 0.5) / 1.7)))
+        bar = Rectangle(
+            width=bar_width,
+            height=bar_height,
+            stroke_width=0,
+            fill_color=color,
+            fill_opacity=0.92,
+        ).move_to([bar_left + bar_width / 2, y0 + bar_height / 2, 0])
+        bars.add(bar)
+
+    def x_for_eta(value: float) -> float:
+        return x0 + width * (value - eta_min) / (eta_max - eta_min)
+
+    median_x = x_for_eta(float(quantiles["p50"]))
+    p90_x = x_for_eta(float(quantiles["p90"]))
+    median = VGroup(
+        DashedLine([median_x, y0, 0], [median_x, y0 + height * 0.98, 0], color=WHITE, stroke_width=2),
+        MathTex(r"\mathrm{median}\ \hat{\eta}=0.93", font_size=22, color=WHITE),
+    )
+    median[1].next_to(median[0], UP, buff=0.08)
+    p90 = VGroup(
+        DashedLine([p90_x, y0, 0], [p90_x, y0 + height * 0.75, 0], color=HIGH, stroke_width=2),
+        MathTex(r"90\%\leq 1.48", font_size=22, color=HIGH),
+    )
+    p90[1].next_to(p90[0], UP, buff=0.08)
+
+    x_label = MathTex(r"\widehat{\eta}", font_size=30, color=HIGH).next_to(x_axis, DOWN, buff=0.18)
+    y_label = Text("count", font_size=21, color=MUTED).rotate(PI / 2).next_to(y_axis, LEFT, buff=0.18)
+    ticks = VGroup()
+    for value, label in [(0.5, "0.5"), (1.0, "1.0"), (1.5, "1.5"), (2.0, "2.0"), (2.5, "2.5")]:
+        x = x_for_eta(value)
+        ticks.add(Line([x, y0 - 0.05, 0], [x, y0 + 0.05, 0], color=axis_color, stroke_width=2))
+        ticks.add(Text(label, font_size=16, color=MUTED).move_to([x, y0 - 0.28, 0]))
+    count_label = Text(f"{sum(counts):,} fitted papers", font_size=20, color=WHITE).next_to(VGroup(x_axis, y_axis), UP, buff=0.22).align_to(y_axis, LEFT)
+    return VGroup(x_axis, y_axis, ticks, bars, median, p90, x_label, y_label, count_label)
+
+
 def condensation_reference_card() -> VGroup:
     header = Text("References", font_size=31, color=HIGH)
     book = VGroup(
@@ -103,43 +175,45 @@ def condensation_reference_card() -> VGroup:
 class FitnessDistributionOpening(Scene):
     def construct(self):
         self.camera.background_color = BG
-        add_title(self, "Fitness Distribution and Network Phases", font_size=41)
+        add_title(self, "Start from a Real Fitness Distribution", font_size=41)
 
-        rule = VGroup(
-            concept_label("fitness distribution", "适应度分布", HIGH, en_size=25, zh_size=23),
-            MathTex(r"\Pi_i=\frac{\eta_i k_i}{\sum_j \eta_j k_j}", font_size=48),
-            compact_note("one node's fitness changes its growth", HIGH, size=23),
-        ).arrange(DOWN, buff=0.13).shift(UP * 1.35)
+        heading = VGroup(
+            concept_label("estimated effective fitness", "估计的有效适应度", HIGH, en_size=25, zh_size=23),
+            compact_note("HEP-TH citation histories: growth slope -> fitness proxy", WHITE, size=20),
+        ).arrange(DOWN, buff=0.08).to_edge(UP, buff=1.25)
 
-        def dot_grid(outlier: bool = False) -> VGroup:
-            dots = VGroup()
-            for i in range(15):
-                color = ALERT if outlier and i == 14 else interpolate_color(LOW, HIGH, 0.35 + 0.15 * (i % 3))
-                radius = 0.18 if outlier and i == 14 else 0.12
-                dots.add(
-                    Circle(radius=radius, color=WHITE, fill_color=color, fill_opacity=0.95, stroke_width=1.3)
-                    .move_to(np.array([(i % 5 - 2) * 0.38, (i // 5 - 1) * 0.34, 0]))
-                )
-            return dots
+        chart = eta_distribution_chart().shift(LEFT * 2.75 + DOWN * 0.55)
+        book_anchor = VGroup(
+            compact_note("Book anchor", HIGH, size=24),
+            Text("Network Science Ch. 6 uses", font_size=20, color=WHITE),
+            Text("time evolution of Web documents", font_size=20, color=WHITE),
+            Text("to measure a WWW fitness distribution", font_size=20, color=WHITE),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+        data_rule = VGroup(
+            compact_note("Data requirement", MID, size=24),
+            Text("fitness needs growth histories", font_size=20, color=WHITE),
+            Text("static edge lists show topology,", font_size=20, color=MUTED),
+            Text("not fitness by themselves", font_size=20, color=MUTED),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+        domains = VGroup(
+            compact_note("Possible domains", HIGH, size=24),
+            Text("web snapshots", font_size=20, color=WHITE),
+            Text("citation histories", font_size=20, color=WHITE),
+            Text("social follower growth", font_size=20, color=WHITE),
+            Text("product/adoption networks", font_size=20, color=WHITE),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+        right = VGroup(book_anchor, data_rule, domains).arrange(DOWN, aligned_edge=LEFT, buff=0.27)
+        right.move_to(RIGHT * 3.55 + DOWN * 0.78)
 
-        left = VGroup(
-            compact_note("similar fitness", HIGH, size=24),
-            dot_grid(False),
-            compact_note("many competitors", WHITE, size=20),
-        ).arrange(DOWN, buff=0.2).move_to(LEFT * 3.25 + DOWN * 1.1)
-        right = VGroup(
-            compact_note("extreme outlier", ALERT, size=24),
-            dot_grid(True),
-            compact_note("one node may dominate", WHITE, size=20),
-        ).arrange(DOWN, buff=0.2).move_to(RIGHT * 3.25 + DOWN * 1.1)
-        center = VGroup(
-            MathTex(r"\rho(\eta)", font_size=44, color=HIGH),
-            compact_note("distribution -> topology", HIGH, size=23),
-        ).arrange(DOWN, buff=0.1).to_edge(DOWN, buff=0.45)
+        bottom = VGroup(
+            MathTex(r"\rho(\eta)\ \mathrm{is\ not\ just\ decoration}", font_size=31, color=HIGH),
+            compact_note("a thin right tail can decide whether the network stays fit-get-rich or condenses", WHITE, size=21),
+        ).arrange(DOWN, buff=0.08).to_edge(DOWN, buff=0.28)
 
-        self.play(FadeIn(rule), run_time=1.2)
-        self.play(FadeIn(left), FadeIn(right), run_time=1.2)
-        self.play(FadeIn(center), run_time=0.9)
+        self.play(FadeIn(heading), run_time=1.0)
+        self.play(FadeIn(chart), run_time=1.3)
+        self.play(FadeIn(right), run_time=1.2)
+        self.play(FadeIn(bottom), run_time=0.8)
         self.wait(2.1)
 
 

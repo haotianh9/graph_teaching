@@ -4,13 +4,18 @@ Title: 从凝聚到相变：演化网络的拓扑如何被动力学改变？
 
 ## FitnessDistributionOpening
 
-前面我们已经把 fitness model 写成一个增长规则：
-\(\Pi_i=\frac{\eta_i k_i}{\sum_j \eta_j k_j}\)。
-这个公式里的 \(\eta_i\) 会改变单个节点的增长速度。
-现在问题向上走一层：如果整个网络里的 fitness 分布 \(\rho(\eta)\) 改变，网络拓扑会不会进入不同的相？
+我们先不要从抽象分布开始，而是先看一个真实数据里的估计结果。
+这里用的是 SNAP HEP-TH citation histories：对每篇论文的引用增长曲线做 log-log slope 拟合，
+再把斜率归一化成一个 effective fitness，记作 \(\widehat{\eta}\)。
 
-左边是许多节点 fitness 接近的情况。竞争会分散，多个节点都可能成为 hub。
-右边是出现极端高 fitness 节点的情况。它不只是增长更快，还可能改变整个网络的形状。
+这不是说 fitness 可以从一张静态网络图里直接读出来。
+fitness 需要时间历史：节点什么时候出现，链接或引用如何随时间增加。
+Network Science 第六章的经典例子使用的是 Web documents 的时间演化来测量 WWW 的 fitness distribution。
+我们这里用 citation histories，是因为本地已有可复现的时间戳数据。
+
+这个直方图传达的重点是：大多数节点的 estimated fitness 接近中间区域，
+但右尾仍然有少数高 fitness 节点。
+接下来要问的是：整个 \(\rho(\eta)\) 的形状，是否会让网络从普通的 fit-get-rich 进入 condensation？
 
 ## TwoOutcomesOrderParameter
 

@@ -15,6 +15,67 @@
   "median_beta_hat": 1.557,
   "p10_beta_hat": 1.001,
   "p90_beta_hat": 2.463,
+  "eta_distribution": {
+    "label": "estimated effective fitness from HEP-TH citation growth",
+    "note": "eta_hat = beta_hat / mean(beta_hat); this is a teaching proxy for effective growth fitness",
+    "bin_edges": [
+      0.3,
+      0.508,
+      0.715,
+      0.923,
+      1.131,
+      1.338,
+      1.546,
+      1.754,
+      1.962,
+      2.169,
+      2.377,
+      2.585,
+      2.792,
+      3.0
+    ],
+    "counts": [
+      46,
+      224,
+      344,
+      288,
+      173,
+      101,
+      45,
+      27,
+      12,
+      9,
+      1,
+      0,
+      1
+    ],
+    "density": [
+      0.134,
+      0.651,
+      1.0,
+      0.837,
+      0.503,
+      0.294,
+      0.131,
+      0.078,
+      0.035,
+      0.026,
+      0.003,
+      0.0,
+      0.003
+    ],
+    "quantiles": {
+      "p10": 0.6,
+      "p25": 0.753,
+      "p50": 0.934,
+      "p75": 1.178,
+      "p90": 1.476,
+      "p95": 1.666,
+      "p99": 2.083
+    },
+    "min": 0.363,
+    "max": 2.844
+  },
   "examples": [
     {
       "label": "early burst",

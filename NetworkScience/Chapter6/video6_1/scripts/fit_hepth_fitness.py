@@ -213,8 +213,29 @@ def select_sample_curves(rows: list[dict], seed: int = 11, count: int = 28) -> l
 def write_outputs(rows: list[dict], mean_beta: float, stats: dict) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     betas = np.array([row["beta_hat"] for row in rows], dtype=float)
+    etas = np.array([row["eta_hat"] for row in rows], dtype=float)
     examples = select_examples(rows, mean_beta)
     samples = select_sample_curves(rows)
+    eta_bins = np.linspace(0.3, 3.0, 14)
+    eta_counts, eta_edges = np.histogram(etas, bins=eta_bins)
+    eta_distribution = {
+        "label": "estimated effective fitness from HEP-TH citation growth",
+        "note": "eta_hat = beta_hat / mean(beta_hat); this is a teaching proxy for effective growth fitness",
+        "bin_edges": [round(float(value), 3) for value in eta_edges],
+        "counts": [int(value) for value in eta_counts],
+        "density": [round(float(value / max(eta_counts.max(), 1)), 3) for value in eta_counts],
+        "quantiles": {
+            "p10": round(float(np.percentile(etas, 10)), 3),
+            "p25": round(float(np.percentile(etas, 25)), 3),
+            "p50": round(float(np.percentile(etas, 50)), 3),
+            "p75": round(float(np.percentile(etas, 75)), 3),
+            "p90": round(float(np.percentile(etas, 90)), 3),
+            "p95": round(float(np.percentile(etas, 95)), 3),
+            "p99": round(float(np.percentile(etas, 99)), 3),
+        },
+        "min": round(float(etas.min()), 3),
+        "max": round(float(etas.max()), 3),
+    }
 
     summary = {
         "dataset": "SNAP High-energy physics theory citation network",
@@ -230,6 +251,7 @@ def write_outputs(rows: list[dict], mean_beta: float, stats: dict) -> None:
         "median_beta_hat": round(float(np.median(betas)), 3),
         "p10_beta_hat": round(float(np.percentile(betas, 10)), 3),
         "p90_beta_hat": round(float(np.percentile(betas, 90)), 3),
+        "eta_distribution": eta_distribution,
         "examples": examples,
         "sample_curves": samples,
     }

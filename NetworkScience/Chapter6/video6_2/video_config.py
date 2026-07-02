@@ -34,18 +34,23 @@ COVER_OUTPUTS = [
 
 SUGGESTED_TITLE = "从凝聚到相变：演化网络的拓扑如何被动力学改变？"
 SHORT_DESCRIPTION = (
-    "这一节从 fitness 分布出发，解释为什么同一个增长规则既可能产生 fit-get-rich，"
-    "也可能进入凝聚态：一个节点拿走有限比例的链接。随后把这个想法推广到"
-    "initial attractiveness、internal links、deletion、aging 和 accelerated growth，"
-    "强调网络拓扑是演化动力学留下的宏观痕迹。"
+    "这一节先从真实 HEP-TH citation histories 拟合出的 estimated fitness 分布出发，"
+    "再问一个更大的问题：整个 fitness distribution 的形状会不会改变网络的相？"
+    "同一个增长规则既可能产生 fit-get-rich，也可能进入 condensation："
+    "一个节点拿走有限比例的链接。后半部分把这个想法推广到 initial attractiveness、"
+    "internal links、deletion、aging 和 accelerated growth，强调网络拓扑是演化动力学留下的宏观痕迹。"
 )
 REFERENCES = [
     ("Network Science book, Chapter 6.4", "https://networksciencebook.com/chapter/6#bose-einstein-condensation"),
+    ("Network Science book, measuring fitness", "https://networksciencebook.com/chapter/6#measuring-fitness"),
+    ("Experience versus talent shapes the structure of the Web", "https://doi.org/10.1073/pnas.0805921105"),
     ("Bianconi and Barabasi, Bose-Einstein condensation in complex networks", "https://doi.org/10.1103/PhysRevLett.86.5632"),
+    ("SNAP HEP-TH citation network", "https://snap.stanford.edu/data/cit-HepTh.html"),
     ("Course code and teaching materials", "https://github.com/haotianh9/graph_teaching"),
 ]
 
 FORMULA_SPEECH = {
+    r"\(\widehat{\eta}\)": "艾塔的估计值",
     r"\(\eta\)": "艾塔",
     r"\(\rho(\eta)\)": "柔艾塔",
     r"\(\Pi_i=\frac{\eta_i k_i}{\sum_j \eta_j k_j}\)": "节点 i 被连接的概率，等于艾塔 i 乘以 k i，再除以所有节点艾塔 j 乘以 k j 的总和",
