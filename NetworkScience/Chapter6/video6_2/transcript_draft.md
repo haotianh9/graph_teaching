@@ -33,12 +33,23 @@ Title: 从凝聚到相变：演化网络的拓扑如何被动力学改变？
 ## CondensationAsPhaseTransition
 
 这就是网络里的 condensation。
+在进入类比之前，先区分两类量子粒子。
+Bose 粒子，也就是玻色子，例如 photon、gluon，或者 helium-4 atom，可以有很多粒子占据同一个状态。
+Fermi 粒子，也就是费米子，例如 electron、quark、proton，受到 Pauli exclusion 的限制：
+同一个量子状态不能被许多完全相同的费米子一起占据。
+
+为什么这里用 Bose，而不是 Fermi？
+因为在网络映射里，一个节点可以接收很多链接。
+所以“粒子”对应的是链接，或者说链接端点；“状态”或者“能级”对应的是节点。
+很多链接可以同时连到同一个节点，这更像 Bose 粒子的占据方式。
+
 在普通的 hub hierarchy 中，hub 很大，但没有一个节点拥有有限比例的所有链接。
 在 condensation 中，一个 super-hub 捕获了有限的 link share。
 
-这时可以再引入 Bose gas 的类比。fitness 可以写成
+这时可以引入 Bose gas 的类比。fitness 可以写成
 \(\eta_i=e^{-\beta_T\epsilon_i}\)。
-fitness 越高，对应的能量越低。链接像粒子，super-hub 像最低能级。
+fitness 越高，对应的能量越低。
+最高 fitness 的节点对应最低能级；如果大量链接集中到这个节点，就像很多 Bose 粒子凝聚到最低能级。
 
 这个类比的重点不是热力学细节，而是 phase transition：微观竞争规则的改变，导致网络拓扑发生定性变化。
 

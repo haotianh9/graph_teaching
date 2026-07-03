@@ -293,6 +293,45 @@ class CondensationAsPhaseTransition(Scene):
         self.camera.background_color = BG
         add_title(self, "Condensation Is a Topological Phase Transition", font_size=38)
 
+        def bose_state_diagram() -> VGroup:
+            level = Line(LEFT * 1.0, RIGHT * 1.0, color=HIGH, stroke_width=4)
+            particles = VGroup(
+                *[
+                    Circle(radius=0.11, color=WHITE, fill_color=HIGH, fill_opacity=0.95, stroke_width=1.5).move_to(
+                        level.get_center() + np.array([x, y, 0.0])
+                    )
+                    for x, y in [(-0.42, 0.25), (-0.16, 0.34), (0.12, 0.26), (0.38, 0.36), (0.0, 0.58)]
+                ]
+            )
+            return VGroup(level, particles)
+
+        def fermi_state_diagram() -> VGroup:
+            states = VGroup()
+            for idx, x in enumerate([-0.75, 0.0, 0.75]):
+                level = Line(LEFT * 0.26, RIGHT * 0.26, color=MUTED, stroke_width=4).shift(RIGHT * x)
+                dot = Circle(radius=0.11, color=WHITE, fill_color=LOW, fill_opacity=0.95, stroke_width=1.5).move_to(
+                    level.get_center() + UP * 0.28
+                )
+                states.add(VGroup(level, dot))
+            return states
+
+        bose_panel = VGroup(
+            concept_label("Bose particles", "玻色子", HIGH, en_size=23, zh_size=20),
+            bose_state_diagram(),
+            compact_note("many particles can share one state", WHITE, size=18),
+            compact_note("photons, gluons, helium-4 atoms", MUTED, size=16),
+        ).arrange(DOWN, buff=0.12)
+        fermi_panel = VGroup(
+            concept_label("Fermi particles", "费米子", LOW, en_size=23, zh_size=20),
+            fermi_state_diagram(),
+            compact_note("one state cannot hold many identical particles", WHITE, size=18),
+            compact_note("electrons, quarks, protons", MUTED, size=16),
+        ).arrange(DOWN, buff=0.12)
+        particle_intro = VGroup(
+            VGroup(bose_panel, fermi_panel).arrange(RIGHT, buff=1.05),
+            compact_note("The network analogy uses Bose-like occupancy: many links may occupy the same node.", HIGH, size=21),
+        ).arrange(DOWN, buff=0.28).shift(DOWN * 0.05)
+
         hierarchy = VGroup(
             concept_label("hub hierarchy", "hub 层级", HIGH, en_size=25, zh_size=21),
             compact_note("no finite-share winner", WHITE, size=20),
@@ -307,13 +346,17 @@ class CondensationAsPhaseTransition(Scene):
 
         mapping = VGroup(
             VGroup(MathTex(r"\eta_i=e^{-\beta_T\epsilon_i}", font_size=35, color=HIGH), compact_note("higher fitness -> lower energy", MUTED, size=20)).arrange(DOWN, buff=0.06),
-            VGroup(compact_note("links", LOW, size=22), Arrow(LEFT, RIGHT, color=MUTED, stroke_width=4), compact_note("particles", LOW, size=22)).arrange(RIGHT, buff=0.16),
-            VGroup(compact_note("super-hub", ALERT, size=22), Arrow(LEFT, RIGHT, color=MUTED, stroke_width=4), compact_note("lowest energy", ALERT, size=22)).arrange(RIGHT, buff=0.16),
-        ).arrange(DOWN, buff=0.2).to_edge(DOWN, buff=0.35)
+            VGroup(compact_note("nodes", HIGH, size=21), Arrow(LEFT, RIGHT, color=MUTED, stroke_width=4), compact_note("energy levels", HIGH, size=21)).arrange(RIGHT, buff=0.16),
+            VGroup(compact_note("links", LOW, size=21), Arrow(LEFT, RIGHT, color=MUTED, stroke_width=4), compact_note("Bose particles", LOW, size=21)).arrange(RIGHT, buff=0.16),
+            VGroup(compact_note("highest fitness node", ALERT, size=21), Arrow(LEFT, RIGHT, color=MUTED, stroke_width=4), compact_note("lowest energy level", ALERT, size=21)).arrange(RIGHT, buff=0.16),
+        ).arrange(DOWN, buff=0.15).to_edge(DOWN, buff=0.2)
 
         arrow = Arrow(hierarchy.get_right(), winner.get_left(), color=ALERT, stroke_width=7, buff=0.35)
         label = concept_label("phase transition", "相变", ALERT, en_size=22, zh_size=20).next_to(arrow, UP, buff=0.15)
 
+        self.play(FadeIn(particle_intro), run_time=1.3)
+        self.wait(1.0)
+        self.play(FadeOut(particle_intro), run_time=0.6)
         self.play(FadeIn(hierarchy), run_time=1.0)
         self.play(Create(arrow), FadeIn(label), FadeIn(winner), run_time=1.1)
         self.play(FadeIn(mapping), run_time=1.2)

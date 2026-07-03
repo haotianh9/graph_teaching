@@ -58,8 +58,9 @@ in the large-network limit.
    fitness.
 2. `TwoOutcomesOrderParameter` — compare fit-get-rich and condensation using
    \(s_{\max}\).
-3. `CondensationAsPhaseTransition` — introduce condensation and the brief
-   Bose analogy.
+3. `CondensationAsPhaseTransition` — briefly compare Bose particles and Fermi
+   particles, then map network nodes to energy levels and links to Bose-like
+   particles before introducing condensation.
 4. `RuleToTopology` — generalize from condensation to microscopic rules
    leaving macroscopic traces.
 5. `InitialAttractiveness` — show smooth exponent tuning,
