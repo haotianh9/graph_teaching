@@ -58,9 +58,10 @@ in the large-network limit.
    fitness.
 2. `TwoOutcomesOrderParameter` — compare fit-get-rich and condensation using
    \(s_{\max}\).
-3. `CondensationAsPhaseTransition` — briefly compare Bose particles and Fermi
-   particles, then map network nodes to energy levels and links to Bose-like
-   particles before introducing condensation.
+3. `CondensationAsPhaseTransition` — use a compact schematic after Network
+   Science Fig. 6.8 to compare high/low-temperature Fermi and Bose gases, then
+   map network nodes to energy levels and links to Bose-like particles before
+   introducing condensation.
 4. `RuleToTopology` — generalize from condensation to microscopic rules
    leaving macroscopic traces.
 5. `InitialAttractiveness` — show smooth exponent tuning,
@@ -129,6 +130,8 @@ generated from `video_config.py`.
   https://networksciencebook.com/chapter/6#measuring-fitness
 - Network Science book, Chapter 6.4-6.5:
   https://networksciencebook.com/chapter/6#bose-einstein-condensation
+- Network Science book, Figure 6.8:
+  https://networksciencebook.com/#figure-6-8
 - Kong, Sarshar, and Roychowdhury, *Experience versus talent shapes the
   structure of the Web*, PNAS 105, 13724-13729 (2008).
 - Common Crawl Web Graphs:

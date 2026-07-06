@@ -293,44 +293,60 @@ class CondensationAsPhaseTransition(Scene):
         self.camera.background_color = BG
         add_title(self, "Condensation Is a Topological Phase Transition", font_size=38)
 
-        def bose_state_diagram() -> VGroup:
-            level = Line(LEFT * 1.0, RIGHT * 1.0, color=HIGH, stroke_width=4)
-            particles = VGroup(
+        def energy_panel(tag: str, occupancy: list[tuple[int, float]], color) -> VGroup:
+            y_positions = [-0.55, -0.3, -0.05, 0.2, 0.45]
+            levels = VGroup(
                 *[
-                    Circle(radius=0.11, color=WHITE, fill_color=HIGH, fill_opacity=0.95, stroke_width=1.5).move_to(
-                        level.get_center() + np.array([x, y, 0.0])
-                    )
-                    for x, y in [(-0.42, 0.25), (-0.16, 0.34), (0.12, 0.26), (0.38, 0.36), (0.0, 0.58)]
+                    Line(LEFT * 1.0, RIGHT * 1.0, color=MUTED, stroke_width=2.8).shift(UP * y)
+                    for y in y_positions
                 ]
             )
-            return VGroup(level, particles)
-
-        def fermi_state_diagram() -> VGroup:
-            states = VGroup()
-            for idx, x in enumerate([-0.75, 0.0, 0.75]):
-                level = Line(LEFT * 0.26, RIGHT * 0.26, color=MUTED, stroke_width=4).shift(RIGHT * x)
-                dot = Circle(radius=0.11, color=WHITE, fill_color=LOW, fill_opacity=0.95, stroke_width=1.5).move_to(
-                    level.get_center() + UP * 0.28
+            particles = VGroup()
+            for level, x_offset in occupancy:
+                y = y_positions[level]
+                particles.add(
+                    Circle(
+                        radius=0.075,
+                        color=WHITE,
+                        fill_color=color,
+                        fill_opacity=0.97,
+                        stroke_width=1.0,
+                    ).move_to(np.array([x_offset, y + 0.04, 0.0]))
                 )
-                states.add(VGroup(level, dot))
-            return states
+            label = Text(tag, font_size=19, color=WHITE).next_to(levels, UP, buff=0.04).align_to(levels, LEFT)
+            return VGroup(levels, particles, label)
 
-        bose_panel = VGroup(
-            concept_label("Bose particles", "玻色子", HIGH, en_size=23, zh_size=20),
-            bose_state_diagram(),
-            compact_note("many particles can share one state", WHITE, size=18),
-            compact_note("photons, gluons, helium-4 atoms", MUTED, size=16),
-        ).arrange(DOWN, buff=0.12)
-        fermi_panel = VGroup(
-            concept_label("Fermi particles", "费米子", LOW, en_size=23, zh_size=20),
-            fermi_state_diagram(),
-            compact_note("one state cannot hold many identical particles", WHITE, size=18),
-            compact_note("electrons, quarks, protons", MUTED, size=16),
-        ).arrange(DOWN, buff=0.12)
-        particle_intro = VGroup(
-            VGroup(bose_panel, fermi_panel).arrange(RIGHT, buff=1.05),
-            compact_note("The network analogy uses Bose-like occupancy: many links may occupy the same node.", HIGH, size=21),
-        ).arrange(DOWN, buff=0.28).shift(DOWN * 0.05)
+        def quantum_gas_schematic() -> VGroup:
+            fermi_high = energy_panel("a.", [(0, -0.55), (1, 0.35), (2, -0.2), (3, 0.55), (4, -0.05)], LOW)
+            bose_high = energy_panel("b.", [(0, -0.65), (0, -0.25), (0, 0.15), (2, -0.25), (2, 0.25), (4, 0.2)], HIGH)
+            fermi_low = energy_panel("c.", [(0, -0.65), (1, -0.35), (2, -0.05), (3, 0.25), (4, 0.55)], LOW)
+            bose_low = energy_panel("d.", [(0, -0.65), (0, -0.32), (0, 0.0), (0, 0.32), (0, 0.65)], HIGH)
+
+            panels = VGroup(
+                VGroup(fermi_high, bose_high).arrange(RIGHT, buff=1.4),
+                VGroup(fermi_low, bose_low).arrange(RIGHT, buff=1.4),
+            ).arrange(DOWN, buff=0.45)
+
+            fermi_title = Text("FERMI GAS", font_size=24, color=LOW).move_to(fermi_high.get_top() + UP * 0.42)
+            bose_title = Text("BOSE GAS", font_size=24, color=HIGH).move_to(bose_high.get_top() + UP * 0.42)
+            high_t = Text("HIGH T", font_size=18, color=MUTED).next_to(VGroup(fermi_high, bose_high), LEFT, buff=0.22)
+            low_t = Text("LOW T", font_size=18, color=MUTED).next_to(VGroup(fermi_low, bose_low), LEFT, buff=0.22)
+            top_note = compact_note(
+                "quantum energy levels are discrete; occupancy rules decide whether particles can crowd",
+                WHITE,
+                size=18,
+            )
+            bottom_note = compact_note(
+                "low temperature: Fermi fills levels bottom-up; Bose crowds into the lowest level",
+                HIGH,
+                size=19,
+            )
+            source = compact_note("compact schematic after Network Science Fig. 6.8", MUTED, size=14)
+
+            figure = VGroup(fermi_title, bose_title, high_t, low_t, panels)
+            return VGroup(top_note, figure, bottom_note, source).arrange(DOWN, buff=0.12).scale(0.93).shift(DOWN * 0.05)
+
+        particle_intro = quantum_gas_schematic()
 
         hierarchy = VGroup(
             concept_label("hub hierarchy", "hub 层级", HIGH, en_size=25, zh_size=21),
