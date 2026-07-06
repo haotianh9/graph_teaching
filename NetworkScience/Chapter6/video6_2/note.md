@@ -92,6 +92,55 @@ in the large-network limit.
 - Use fixed scene zones for title, equations, diagrams, and captions to avoid
   text collisions.
 
+## Empirical Check: Does Eq. 6.22 Fit?
+
+The book gives a theoretical fitness-density family
+
+\[
+\rho(\eta)=(1-\zeta)(1-\eta)^{-\zeta}, \qquad 0\le \eta \le 1.
+\]
+
+This should be treated as a stylized analytic family, not as a claim that any
+measured fitness distribution must exactly have this form. Our fitted
+quantities are teaching proxies:
+
+- HEP-TH: \(\widehat{\eta}=\widehat{\beta}/\langle\widehat{\beta}\rangle\).
+- Web: \(\widehat{\eta}_{web}\) from domain-level Common Crawl PageRank
+  snapshot growth.
+
+They are not naturally bounded by 1, so fitting Eq. 6.22 requires an extra
+normalization. The reproducible check is in:
+
+```text
+scripts/fit_condensation_family.py
+data/condensation_family_fit.json
+```
+
+Main result:
+
+| Data proxy | Normalization | Fit quality | Fitted \(\zeta\) |
+|---|---|---:|---:|
+| HEP-TH citation | literal sample max, all bins | poor, binned KS \(\approx 0.31\) | \(-1.19\) |
+| HEP-TH citation | shape-only min-max, all bins | rough, binned KS \(\approx 0.17\) | \(-2.13\) |
+| HEP-TH citation | shape-only min-max, top 25% | better tail fit, binned KS \(\approx 0.05\) | \(-3.39\) |
+| Common Crawl Web proxy | literal sample max, all bins | poor, binned KS \(\approx 0.48\) | \(-0.03\) |
+| Common Crawl Web proxy | shape-only min-max, all bins | weak, binned KS \(\approx 0.30\) | \(-1.76\) |
+| Common Crawl Web proxy | shape-only min-max, top 25% | rough tail fit, binned KS \(\approx 0.12\) | \(-5.42\) |
+
+Interpretation:
+
+- The empirical proxy distributions do **not** strictly satisfy Eq. 6.22.
+- If Eq. 6.22 is used only as a rough tail-shape approximation, the HEP-TH
+  proxy suggests \(\zeta\approx -2\) to \(-3\), equivalently
+  \(\rho(\eta)=(1+\theta)(1-\eta)^\theta\) with
+  \(\theta=-\zeta\approx 2\) to \(3\).
+- The Web-domain proxy is more truncated and less reliable for this specific
+  fit; it is useful pedagogically but should not be used to claim a precise
+  \(\zeta\).
+- A better condensation test is not only fitting \(\rho(\eta)\), but simulating
+  the Bianconi-Barabasi process with the empirical/proxy distribution and
+  checking whether \(s_{\max}(t)=k_{\max}(t)/\sum_j k_j(t)\) stays finite.
+
 ## Commands
 
 Run from this folder:

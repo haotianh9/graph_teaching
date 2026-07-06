@@ -1,0 +1,888 @@
+{
+  "model": "rho(eta)=(1-zeta)(1-eta)^(-zeta), eta in [0,1]",
+  "interpretation_note": "The fitted video quantities are teaching proxies and are not naturally bounded by 1. The 'sample_max' normalization maps eta_hat/max(eta_hat) into [0,1] and tests the formula most literally, but it is strongly affected by selection/truncation. The 'sample_minmax' normalization tests only whether the observed shape resembles the theoretical family after removing the observed lower cutoff.",
+  "fits": [
+    {
+      "name": "HEP-TH citation effective fitness proxy",
+      "caveat": "Uses binned eta_hat = beta_hat / mean(beta_hat), not a direct intrinsic fitness measurement.",
+      "fits": [
+        {
+          "zeta": -1.191,
+          "equivalent_positive_exponent_theta": 1.191,
+          "n_binned_observations": 1271.0,
+          "max_binned_cdf_error": 0.314,
+          "mean_binned_cdf_error": 0.0941,
+          "chi_square_binned": 1095.466,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.1055,
+              "observed": 0.0,
+              "expected": 275.423
+            },
+            {
+              "left": 0.1055,
+              "right": 0.1786,
+              "observed": 46.0,
+              "expected": 169.707
+            },
+            {
+              "left": 0.1786,
+              "right": 0.2514,
+              "observed": 224.0,
+              "expected": 151.93
+            },
+            {
+              "left": 0.2514,
+              "right": 0.3245,
+              "observed": 344.0,
+              "expected": 135.921
+            },
+            {
+              "left": 0.3245,
+              "right": 0.3977,
+              "observed": 288.0,
+              "expected": 119.464
+            },
+            {
+              "left": 0.3977,
+              "right": 0.4705,
+              "observed": 173.0,
+              "expected": 102.905
+            },
+            {
+              "left": 0.4705,
+              "right": 0.5436,
+              "observed": 101.0,
+              "expected": 87.733
+            },
+            {
+              "left": 0.5436,
+              "right": 0.6167,
+              "observed": 45.0,
+              "expected": 72.466
+            },
+            {
+              "left": 0.6167,
+              "right": 0.6899,
+              "observed": 27.0,
+              "expected": 57.702
+            },
+            {
+              "left": 0.6899,
+              "right": 0.7627,
+              "observed": 12.0,
+              "expected": 43.35
+            },
+            {
+              "left": 0.7627,
+              "right": 0.8358,
+              "observed": 9.0,
+              "expected": 30.13
+            },
+            {
+              "left": 0.8358,
+              "right": 0.9089,
+              "observed": 1.0,
+              "expected": 17.6
+            },
+            {
+              "left": 0.9089,
+              "right": 0.9817,
+              "observed": 0.0,
+              "expected": 6.472
+            },
+            {
+              "left": 0.9817,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 0.198
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "all",
+          "raw_min_used": 0.363,
+          "raw_max_used": 2.844
+        },
+        {
+          "zeta": -0.2973,
+          "equivalent_positive_exponent_theta": 0.2973,
+          "n_binned_observations": 329.72,
+          "max_binned_cdf_error": 0.5003,
+          "mean_binned_cdf_error": 0.1271,
+          "chi_square_binned": 1084.094,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.4142,
+              "observed": 0.0,
+              "expected": 164.963
+            },
+            {
+              "left": 0.4142,
+              "right": 0.4705,
+              "observed": 133.72,
+              "expected": 20.227
+            },
+            {
+              "left": 0.4705,
+              "right": 0.5436,
+              "observed": 101.0,
+              "expected": 25.346
+            },
+            {
+              "left": 0.5436,
+              "right": 0.6167,
+              "observed": 45.0,
+              "expected": 24.163
+            },
+            {
+              "left": 0.6167,
+              "right": 0.6899,
+              "observed": 27.0,
+              "expected": 22.823
+            },
+            {
+              "left": 0.6899,
+              "right": 0.7627,
+              "observed": 12.0,
+              "expected": 21.168
+            },
+            {
+              "left": 0.7627,
+              "right": 0.8358,
+              "observed": 9.0,
+              "expected": 19.387
+            },
+            {
+              "left": 0.8358,
+              "right": 0.9089,
+              "observed": 1.0,
+              "expected": 16.915
+            },
+            {
+              "left": 0.9089,
+              "right": 0.9817,
+              "observed": 0.0,
+              "expected": 12.893
+            },
+            {
+              "left": 0.9817,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 1.835
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "p75",
+          "raw_min_used": 1.178,
+          "raw_max_used": 2.844
+        },
+        {
+          "zeta": 0.0131,
+          "equivalent_positive_exponent_theta": -0.0131,
+          "n_binned_observations": 128.99,
+          "max_binned_cdf_error": 0.5144,
+          "mean_binned_cdf_error": 0.1482,
+          "chi_square_binned": 552.662,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.519,
+              "observed": 0.0,
+              "expected": 66.347
+            },
+            {
+              "left": 0.519,
+              "right": 0.5436,
+              "observed": 33.99,
+              "expected": 3.165
+            },
+            {
+              "left": 0.5436,
+              "right": 0.6167,
+              "observed": 45.0,
+              "expected": 9.417
+            },
+            {
+              "left": 0.6167,
+              "right": 0.6899,
+              "observed": 27.0,
+              "expected": 9.441
+            },
+            {
+              "left": 0.6899,
+              "right": 0.7627,
+              "observed": 12.0,
+              "expected": 9.425
+            },
+            {
+              "left": 0.7627,
+              "right": 0.8358,
+              "observed": 9.0,
+              "expected": 9.509
+            },
+            {
+              "left": 0.8358,
+              "right": 0.9089,
+              "observed": 1.0,
+              "expected": 9.567
+            },
+            {
+              "left": 0.9089,
+              "right": 0.9817,
+              "observed": 0.0,
+              "expected": 9.636
+            },
+            {
+              "left": 0.9817,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 2.485
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "p90",
+          "raw_min_used": 1.476,
+          "raw_max_used": 2.844
+        },
+        {
+          "zeta": -2.1344,
+          "equivalent_positive_exponent_theta": 2.1344,
+          "n_binned_observations": 1271.0,
+          "max_binned_cdf_error": 0.1685,
+          "mean_binned_cdf_error": 0.0444,
+          "chi_square_binned": 484.017,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.0584,
+              "observed": 46.0,
+              "expected": 218.631
+            },
+            {
+              "left": 0.0584,
+              "right": 0.1419,
+              "observed": 224.0,
+              "expected": 265.578
+            },
+            {
+              "left": 0.1419,
+              "right": 0.2257,
+              "observed": 344.0,
+              "expected": 216.742
+            },
+            {
+              "left": 0.2257,
+              "right": 0.3096,
+              "observed": 288.0,
+              "expected": 172.023
+            },
+            {
+              "left": 0.3096,
+              "right": 0.393,
+              "observed": 173.0,
+              "expected": 132.201
+            },
+            {
+              "left": 0.393,
+              "right": 0.4768,
+              "observed": 101.0,
+              "expected": 98.997
+            },
+            {
+              "left": 0.4768,
+              "right": 0.5607,
+              "observed": 45.0,
+              "expected": 70.328
+            },
+            {
+              "left": 0.5607,
+              "right": 0.6445,
+              "observed": 27.0,
+              "expected": 46.807
+            },
+            {
+              "left": 0.6445,
+              "right": 0.7279,
+              "observed": 12.0,
+              "expected": 28.205
+            },
+            {
+              "left": 0.7279,
+              "right": 0.8118,
+              "observed": 9.0,
+              "expected": 14.715
+            },
+            {
+              "left": 0.8118,
+              "right": 0.8956,
+              "observed": 1.0,
+              "expected": 5.705
+            },
+            {
+              "left": 0.8956,
+              "right": 0.979,
+              "observed": 0.0,
+              "expected": 1.06
+            },
+            {
+              "left": 0.979,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 0.007
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "all",
+          "raw_min_used": 0.363,
+          "raw_max_used": 2.844
+        },
+        {
+          "zeta": -3.3889,
+          "equivalent_positive_exponent_theta": 3.3889,
+          "n_binned_observations": 329.72,
+          "max_binned_cdf_error": 0.0476,
+          "mean_binned_cdf_error": 0.0143,
+          "chi_square_binned": 12314.754,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.096,
+              "observed": 133.72,
+              "expected": 118.035
+            },
+            {
+              "left": 0.096,
+              "right": 0.2209,
+              "observed": 101.0,
+              "expected": 101.434
+            },
+            {
+              "left": 0.2209,
+              "right": 0.3457,
+              "observed": 45.0,
+              "expected": 59.025
+            },
+            {
+              "left": 0.3457,
+              "right": 0.4706,
+              "observed": 27.0,
+              "expected": 31.001
+            },
+            {
+              "left": 0.4706,
+              "right": 0.5948,
+              "observed": 12.0,
+              "expected": 13.973
+            },
+            {
+              "left": 0.5948,
+              "right": 0.7197,
+              "observed": 9.0,
+              "expected": 5.011
+            },
+            {
+              "left": 0.7197,
+              "right": 0.8445,
+              "observed": 1.0,
+              "expected": 1.148
+            },
+            {
+              "left": 0.8445,
+              "right": 0.9688,
+              "observed": 0.0,
+              "expected": 0.093
+            },
+            {
+              "left": 0.9688,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 0.0
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "p75",
+          "raw_min_used": 1.178,
+          "raw_max_used": 2.844
+        },
+        {
+          "zeta": -2.7489,
+          "equivalent_positive_exponent_theta": 2.7489,
+          "n_binned_observations": 128.99,
+          "max_binned_cdf_error": 0.0848,
+          "mean_binned_cdf_error": 0.0211,
+          "chi_square_binned": 1640.353,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.0512,
+              "observed": 33.99,
+              "expected": 23.055
+            },
+            {
+              "left": 0.0512,
+              "right": 0.2032,
+              "observed": 45.0,
+              "expected": 50.893
+            },
+            {
+              "left": 0.2032,
+              "right": 0.3553,
+              "observed": 27.0,
+              "expected": 30.156
+            },
+            {
+              "left": 0.3553,
+              "right": 0.5066,
+              "observed": 12.0,
+              "expected": 15.756
+            },
+            {
+              "left": 0.5066,
+              "right": 0.6586,
+              "observed": 9.0,
+              "expected": 6.835
+            },
+            {
+              "left": 0.6586,
+              "right": 0.8107,
+              "observed": 1.0,
+              "expected": 2.043
+            },
+            {
+              "left": 0.8107,
+              "right": 0.962,
+              "observed": 0.0,
+              "expected": 0.251
+            },
+            {
+              "left": 0.962,
+              "right": 1.0,
+              "observed": 1.0,
+              "expected": 0.001
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "p90",
+          "raw_min_used": 1.476,
+          "raw_max_used": 2.844
+        }
+      ]
+    },
+    {
+      "name": "Common Crawl Web-domain visibility proxy",
+      "caveat": "Uses domain-level PageRank growth proxy; not page-level Web document fitness.",
+      "fits": [
+        {
+          "zeta": -0.027,
+          "equivalent_positive_exponent_theta": 0.027,
+          "n_binned_observations": 695.0,
+          "max_binned_cdf_error": 0.4787,
+          "mean_binned_cdf_error": 0.2554,
+          "chi_square_binned": 2979.123,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.3959,
+              "observed": 0.0,
+              "expected": 280.797
+            },
+            {
+              "left": 0.3959,
+              "right": 0.4367,
+              "observed": 0.0,
+              "expected": 28.704
+            },
+            {
+              "left": 0.4367,
+              "right": 0.4769,
+              "observed": 5.0,
+              "expected": 28.221
+            },
+            {
+              "left": 0.4769,
+              "right": 0.5177,
+              "observed": 30.0,
+              "expected": 28.588
+            },
+            {
+              "left": 0.5177,
+              "right": 0.5585,
+              "observed": 63.0,
+              "expected": 28.523
+            },
+            {
+              "left": 0.5585,
+              "right": 0.5987,
+              "observed": 175.0,
+              "expected": 28.028
+            },
+            {
+              "left": 0.5987,
+              "right": 0.6395,
+              "observed": 224.0,
+              "expected": 28.375
+            },
+            {
+              "left": 0.6395,
+              "right": 0.6803,
+              "observed": 127.0,
+              "expected": 28.288
+            },
+            {
+              "left": 0.6803,
+              "right": 0.7205,
+              "observed": 42.0,
+              "expected": 27.771
+            },
+            {
+              "left": 0.7205,
+              "right": 0.7613,
+              "observed": 9.0,
+              "expected": 28.081
+            },
+            {
+              "left": 0.7613,
+              "right": 0.8021,
+              "observed": 10.0,
+              "expected": 27.951
+            },
+            {
+              "left": 0.8021,
+              "right": 0.8423,
+              "observed": 6.0,
+              "expected": 27.381
+            },
+            {
+              "left": 0.8423,
+              "right": 0.8831,
+              "observed": 1.0,
+              "expected": 27.602
+            },
+            {
+              "left": 0.8831,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 76.691
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "all",
+          "raw_min_used": 0.747,
+          "raw_max_used": 1.642
+        },
+        {
+          "zeta": 0.1803,
+          "equivalent_positive_exponent_theta": -0.1803,
+          "n_binned_observations": 177.149,
+          "max_binned_cdf_error": 0.5733,
+          "mean_binned_cdf_error": 0.1909,
+          "chi_square_binned": 1964.158,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.6462,
+              "observed": 0.0,
+              "expected": 101.553
+            },
+            {
+              "left": 0.6462,
+              "right": 0.6803,
+              "observed": 106.149,
+              "expected": 6.027
+            },
+            {
+              "left": 0.6803,
+              "right": 0.7205,
+              "observed": 42.0,
+              "expected": 7.254
+            },
+            {
+              "left": 0.7205,
+              "right": 0.7613,
+              "observed": 9.0,
+              "expected": 7.56
+            },
+            {
+              "left": 0.7613,
+              "right": 0.8021,
+              "observed": 10.0,
+              "expected": 7.798
+            },
+            {
+              "left": 0.8021,
+              "right": 0.8423,
+              "observed": 6.0,
+              "expected": 7.972
+            },
+            {
+              "left": 0.8423,
+              "right": 0.8831,
+              "observed": 1.0,
+              "expected": 8.482
+            },
+            {
+              "left": 0.8831,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 30.502
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "p75",
+          "raw_min_used": 1.061,
+          "raw_max_used": 1.642
+        },
+        {
+          "zeta": 0.3008,
+          "equivalent_positive_exponent_theta": -0.3008,
+          "n_binned_observations": 69.727,
+          "max_binned_cdf_error": 0.5506,
+          "mean_binned_cdf_error": 0.1733,
+          "chi_square_binned": 607.869,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.6815,
+              "observed": 0.0,
+              "expected": 38.395
+            },
+            {
+              "left": 0.6815,
+              "right": 0.7205,
+              "observed": 40.727,
+              "expected": 2.733
+            },
+            {
+              "left": 0.7205,
+              "right": 0.7613,
+              "observed": 9.0,
+              "expected": 2.987
+            },
+            {
+              "left": 0.7613,
+              "right": 0.8021,
+              "observed": 10.0,
+              "expected": 3.146
+            },
+            {
+              "left": 0.8021,
+              "right": 0.8423,
+              "observed": 6.0,
+              "expected": 3.297
+            },
+            {
+              "left": 0.8423,
+              "right": 0.8831,
+              "observed": 1.0,
+              "expected": 3.62
+            },
+            {
+              "left": 0.8831,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 15.549
+            }
+          ],
+          "normalization": "sample_max",
+          "tail": "p90",
+          "raw_min_used": 1.119,
+          "raw_max_used": 1.642
+        },
+        {
+          "zeta": -1.7579,
+          "equivalent_positive_exponent_theta": 1.7579,
+          "n_binned_observations": 695.0,
+          "max_binned_cdf_error": 0.2996,
+          "mean_binned_cdf_error": 0.1041,
+          "chi_square_binned": 647.323,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.0402,
+              "observed": 5.0,
+              "expected": 74.399
+            },
+            {
+              "left": 0.0402,
+              "right": 0.1151,
+              "observed": 30.0,
+              "expected": 124.525
+            },
+            {
+              "left": 0.1151,
+              "right": 0.1899,
+              "observed": 63.0,
+              "expected": 107.316
+            },
+            {
+              "left": 0.1899,
+              "right": 0.2637,
+              "observed": 175.0,
+              "expected": 89.974
+            },
+            {
+              "left": 0.2637,
+              "right": 0.3385,
+              "observed": 224.0,
+              "expected": 76.484
+            },
+            {
+              "left": 0.3385,
+              "right": 0.4134,
+              "observed": 127.0,
+              "expected": 62.682
+            },
+            {
+              "left": 0.4134,
+              "right": 0.4872,
+              "observed": 42.0,
+              "expected": 49.422
+            },
+            {
+              "left": 0.4872,
+              "right": 0.562,
+              "observed": 9.0,
+              "expected": 38.882
+            },
+            {
+              "left": 0.562,
+              "right": 0.6369,
+              "observed": 10.0,
+              "expected": 28.787
+            },
+            {
+              "left": 0.6369,
+              "right": 0.7106,
+              "observed": 6.0,
+              "expected": 19.788
+            },
+            {
+              "left": 0.7106,
+              "right": 0.7855,
+              "observed": 1.0,
+              "expected": 12.78
+            },
+            {
+              "left": 0.7855,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 9.961
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "all",
+          "raw_min_used": 0.747,
+          "raw_max_used": 1.642
+        },
+        {
+          "zeta": -5.4214,
+          "equivalent_positive_exponent_theta": 5.4214,
+          "n_binned_observations": 177.149,
+          "max_binned_cdf_error": 0.1208,
+          "mean_binned_cdf_error": 0.0394,
+          "chi_square_binned": 76.623,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.0964,
+              "observed": 106.149,
+              "expected": 84.746
+            },
+            {
+              "left": 0.0964,
+              "right": 0.21,
+              "observed": 42.0,
+              "expected": 53.408
+            },
+            {
+              "left": 0.21,
+              "right": 0.3253,
+              "observed": 9.0,
+              "expected": 24.839
+            },
+            {
+              "left": 0.3253,
+              "right": 0.4406,
+              "observed": 10.0,
+              "expected": 9.909
+            },
+            {
+              "left": 0.4406,
+              "right": 0.5542,
+              "observed": 6.0,
+              "expected": 3.26
+            },
+            {
+              "left": 0.5542,
+              "right": 0.6695,
+              "observed": 1.0,
+              "expected": 0.844
+            },
+            {
+              "left": 0.6695,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 0.145
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "p75",
+          "raw_min_used": 1.061,
+          "raw_max_used": 1.642
+        },
+        {
+          "zeta": -3.404,
+          "equivalent_positive_exponent_theta": 3.404,
+          "n_binned_observations": 69.727,
+          "max_binned_cdf_error": 0.1469,
+          "mean_binned_cdf_error": 0.036,
+          "chi_square_binned": 15.613,
+          "expected_bins": [
+            {
+              "left": 0.0,
+              "right": 0.1224,
+              "observed": 40.727,
+              "expected": 30.486
+            },
+            {
+              "left": 0.1224,
+              "right": 0.2505,
+              "observed": 9.0,
+              "expected": 19.655
+            },
+            {
+              "left": 0.2505,
+              "right": 0.3786,
+              "observed": 10.0,
+              "expected": 11.007
+            },
+            {
+              "left": 0.3786,
+              "right": 0.5048,
+              "observed": 6.0,
+              "expected": 5.422
+            },
+            {
+              "left": 0.5048,
+              "right": 0.6329,
+              "observed": 1.0,
+              "expected": 2.312
+            },
+            {
+              "left": 0.6329,
+              "right": 1.0,
+              "observed": 3.0,
+              "expected": 0.845
+            }
+          ],
+          "normalization": "sample_minmax",
+          "tail": "p90",
+          "raw_min_used": 1.119,
+          "raw_max_used": 1.642
+        }
+      ]
+    }
+  ]
+}
